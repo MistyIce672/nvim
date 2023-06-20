@@ -18,7 +18,7 @@ token = os.getenv("token")
 database = os.getenv("database")
 
 cluster = MongoClient(database)
-db = cluster['single_use']
+db = cluster['customer-service-bot']
 webhooks = db['broadcast']
 
 def test(url):
