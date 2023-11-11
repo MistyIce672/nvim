@@ -61,7 +61,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
--- 
+--
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
@@ -86,7 +86,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -110,7 +110,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -128,16 +128,16 @@ require('lazy').setup({
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
           if vim.wo.diff then return ']c' end
           vim.schedule(function() gs.next_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
-        vim.keymap.set({'n', 'v'}, '[c', function()
+        end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
           if vim.wo.diff then return '[c' end
           vim.schedule(function() gs.prev_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+        end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
       end,
     },
   },
@@ -216,25 +216,27 @@ require('lazy').setup({
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-    local function my_on_attach(bufnr)
-      local api = require "nvim-tree.api"
+      local function my_on_attach(bufnr)
+        local api = require "nvim-tree.api"
         local function opts(desc)
           return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
         --default mappings
         api.config.mappings.default_on_attach(bufnr)
         -- custom mappings
-        vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
-        vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
-        vim.keymap.set('n', '<C-n>', api.tree.toggle,                       opts('Toggle'))
+        vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
+        vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+        vim.keymap.set('n', '<C-n>', api.tree.toggle, opts('Toggle'))
       end
-    require("nvim-tree").setup {
-      on_attach = my_on_attach}
+      require("nvim-tree").setup {
+        on_attach = my_on_attach }
     end,
   },
   {
-    "akinsho/toggleterm.nvim", tag = '*', config = function()
-    require("toggleterm").setup{
+    "akinsho/toggleterm.nvim",
+    tag = '*',
+    config = function()
+      require("toggleterm").setup {
         size = 13,
         open_mapping = [[<c-\>]],
         shade_filetypes = {},
@@ -244,12 +246,12 @@ require('lazy').setup({
         persist_size = true,
         direction = 'horizontal'
       }
-  end,
+    end,
   },
   {
     'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function() vim.g.barbar_auto_setup = false end,
@@ -271,10 +273,16 @@ require('lazy').setup({
   {
     'sudormrfbin/cheatsheet.nvim',
     requires = {
-      {'nvim-telescope/telescope.nvim'},
-      {'nvim-lua/popup.nvim'},
-      {'nvim-lua/plenary.nvim'},
+      { 'nvim-telescope/telescope.nvim' },
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-lua/plenary.nvim' },
     }
+  },
+  {
+    'windwp/nvim-autopairs',
+    config = function()
+      require("nvim-autopairs").setup {}
+    end,
   }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -370,16 +378,16 @@ local opts = { noremap = true, silent = true }
 -- Move to previous/next
 map('n', '<C-a>', '<Cmd>BufferPrevious<CR>', opts)
 map('n', '<C-s>', '<Cmd>BufferNext<CR>', opts)
-vim.keymap.set('n', '<C-n>', require('nvim-tree.api').tree.toggle, {desc = 'toggle nvimtree'})
-vim.keymap.set('n', '<C-e>', require('nvim-tree.api').tree.focus, {desc = 'focus tree'})
+vim.keymap.set('n', '<C-n>', require('nvim-tree.api').tree.toggle, { desc = 'toggle nvimtree' })
+vim.keymap.set('n', '<C-e>', require('nvim-tree.api').tree.focus, { desc = 'focus tree' })
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
-  -- Lbh pna cnff nqqvgvbany pbasvthengvba gb gryrfpbcr gb punatr gurzr, ynlbhg, rgp.
-  erdhver('gryrfpbcr.ohvygva').pheerag_ohssre_shmml_svaq(erdhver('gryrfpbcr.gurzrf').trg_qebcqbja {
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
   })
@@ -464,7 +472,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
