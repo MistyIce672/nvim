@@ -120,7 +120,7 @@ require('lazy').setup({
         add = { text = '+' },
         change = { text = '~' },
         delete = { text = '_' },
-        topdelete = { text = 'â€¾' },
+        topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
@@ -256,7 +256,7 @@ require('lazy').setup({
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
       -- insert_at_start = true,
-      -- â€¦etc.
+      -- …etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
