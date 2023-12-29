@@ -120,7 +120,7 @@ require('lazy').setup({
         add = { text = '+' },
         change = { text = '~' },
         delete = { text = '_' },
-        topdelete = { text = '‾' },
+        topdelete = { text = 'â€¾' },
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
@@ -170,10 +170,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl", opts = {}
   },
 
   -- "gc" to comment visual regions/lines
@@ -259,7 +256,7 @@ require('lazy').setup({
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
       -- insert_at_start = true,
-      -- …etc.
+      -- â€¦etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
